@@ -1,0 +1,32 @@
+steps:
+  # 1. Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', '$_IMAGE_PATH', '.']
+
+  # 2. Push the image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '$_IMAGE_PATH']
+
+  # 3. Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - '${_SERVICE_NAME}'
+      - '--image'
+      - '$_IMAGE_PATH'
+      - '--region'
+      - '${_REGION}'
+      - '--allow-unauthenticated'
+
+substitutions:
+  _PROJECT_ID: ${PROJECT_ID}
+  _REGION: us-west1
+  _SERVICE_NAME: inventory-api
+  _REPOSITORY: cloud-run-source-deploy
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  env:
+    - '_IMAGE_PATH=${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_SERVICE_NAME}:${SHORT_SHA}'
