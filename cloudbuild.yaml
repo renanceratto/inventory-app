@@ -29,4 +29,4 @@ substitutions:
 options:
   logging: CLOUD_LOGGING_ONLY
   env:
-    - '_IMAGE_PATH=${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_SERVICE_NAME}:${SHORT_SHA}'
+    - '_IMAGE_PATH=${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/${_SERVICE_NAME}:${SHORT_SHA}'
