@@ -21,7 +21,7 @@ steps:
       - '--allow-unauthenticated'
 
 substitutions:
-  _PROJECT_ID: ${PROJECT_ID}
+  _PROJECT_ID: qwiklabs-gcp-00-e829afdeaf56
   _REGION: us-west1
   _SERVICE_NAME: inventory-api
   _REPOSITORY: cloud-run-source-deploy
